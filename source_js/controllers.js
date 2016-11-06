@@ -15,10 +15,6 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
                   }
                 }
                 console.log($scope.images);
-    						// $scope.getLocations(response.data.data);
-    						// if (response.data.data.hasOwnProperty('name')) {
-    						// 	$scope.getRemedies(response.data.data.name);
-    						// }
     				})
     };
 }]);
