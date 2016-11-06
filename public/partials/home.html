@@ -1,0 +1,21 @@
+<li class="has-form">
+  <div class="row collapse">
+    <div class="large-8 small-9 columns">
+      <input ng-model="searchText" type="text" placeholder="Search: city or country">
+    </div>
+    <div class="large-4 small-3 columns">
+      <a ng-click="searchPlace()" class="alert button expand">Search</a>
+    </div>
+  </div>
+</li>
+
+
+<div class="row small-up-1 medium-up-2 large-up-4">
+  <div class="column" ng-repeat="(caption, link) in images">
+    <div class="col-md-3 col-sm-4 col-xs-6">
+      <img class="img-responsive" ng-src="{{ link }}" />
+    </div>
+    <h2>{{ caption }}</h2>
+    <!-- <a ng-href="#/details/{{s.imdbID}}"><img ng-src="./data/images/{{s.imdbID}}.jpg"/></a> -->
+  </div>
+</div>

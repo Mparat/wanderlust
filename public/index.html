@@ -9,21 +9,22 @@
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 
-<body ng-app="mp3">
-
-    <!-- <div ng-view></div> -->
-
-    <!-- DELETE following div and UNCOMMENT the previous one -->
-    <div class="row text-center">
-        <h1>Welcome to MP3!</h1>
-        <img src="http://lorempixel.com/400/200/cats"/>
-        <p> The installation and setup worked out for you. That is commendable.
-            To reward you for your efforts, here is a picture of a cat. However,
-            this is not the page you want. To get started on using your partials,
-            delete this particular div and, instead, uncomment the div given
-            in your index.html and implement your Angular routes in source_js/app.js .
-        </p>
+<body ng-app="wanderlust">
+  <!-- <nav class="top-bar">
+    <div class="top-bar-left">
+      <ul class="menu" data-dropdown-menu>
+        <li class="menu-text"><li class="menu-text"><a ng-href="#/">UP NEXT</a></li>
+      </ul>
     </div>
+      <div class="top-bar-right">
+        <ul class="menu horizontal" data-dropdown-menu>
+          <li class="menu-text"><a ng-href="#/">Home</a></li>
+          <li class="menu-text"><a ng-href="#/gallery">Gallery</a></li>
+        </ul>
+      </div>
+    </nav> -->
+
+    <div ng-view></div>
 
     <!-- Angular Scripts -->
     <!-- NOTE: removing the ".min." can help debugging in the console-->
