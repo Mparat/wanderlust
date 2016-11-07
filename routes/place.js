@@ -12,8 +12,7 @@ module.exports = {
   	var query = req.body.query;
     // var regex = new RegExp(["^", query, "$"].join(""), "i");
     var regex = new RegExp(query, "i");
-    console.log(regex)
-    db.collection('posts').find({"$or": [{"city_name" : regex},{"country_name" : regex}, {"city_name" : {"$in": [regex]}}, {"country_name" : {"$in": [regex]}}]}).toArray(function(err, result) {
+    db.collection('places').find({"$or": [{"city_name" : regex},{"country_name" : regex}, {"city_name" : {"$in": [regex]}}, {"country_name" : {"$in": [regex]}}]}).toArray(function(err, result) {
       if (err) {
         console.log(err);
         return res.status(400).send({message: "Place Not Found", data: {}});

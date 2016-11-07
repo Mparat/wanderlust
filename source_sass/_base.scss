@@ -1,0 +1,64 @@
+@import url('http://fonts.googleapis.com/css?family=Open+Sans|Droid+Sans|Montserrat|MerriweatherAlegreya+Sans|Cantora+One|Dancing+Script');
+.search-bar {
+  list-style: none;
+  position: relative;
+  .has-form {
+    position: fixed;
+    top: 50%;
+    margin-top: -28px;
+    width: 100%;
+    button {
+      background-color: $yellow;
+    }
+  }
+}
+
+$grid-column-gutter: 0px;
+.column {
+  padding: 0 10px;
+  margin-top: -20px;
+  .image-container {
+    h2 {
+      visibility: hidden;
+      font-family: $body-font;
+      font-size: 18px;
+      text-align: center;
+    }
+    i {
+      position: relative;
+      float: right;
+      z-index: 2;
+      top: 30px;
+      right: 10px;
+      color: $blue;
+      visibility: hidden;
+    }
+    a:hover {
+      i {
+        color: $yellow;
+      }
+    }
+    .fa-check-circle {
+      color: $yellow;
+      visibility: visible;
+    }
+    &:hover {
+      h2 {
+        visibility: visible;
+      }
+      .fa-plus {
+        visibility: visible;
+      }
+    }
+  }
+}
+.grid {
+  max-width: 98%;
+  margin-top: 30px;
+  img {
+    z-index: 1;
+    object-fit: cover;
+    height: 275px;
+    width: initial;
+  }
+}
