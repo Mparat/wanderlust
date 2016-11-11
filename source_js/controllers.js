@@ -1,7 +1,8 @@
 app.controller('MainController', ['$scope', '$http', function($scope, $http) {
     $scope.searchText = '';
-    $scope.addedCaptions = [];
+    $scope.addedLinks = [];
     $scope.searchPlace = function() {
+      console.log('searching');
     		$http.post('api/Place/get', {query: $scope.searchText})
             .then(function(response) {
                 returned_array = response.data.data;
@@ -19,24 +20,23 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
                     }
                   }
                 }
-                // console.log($scope.images);
     				})
     };
-    $scope.addImage = function(caption) {
-      if ($scope.addedCaptions.includes(caption)) {
-        $scope.removeImage(caption);
+    $scope.addImage = function(link) {
+      if ($scope.addedLinks.includes(link)) {
+        $scope.removeImage(link);
       }
       else {
-        var add_button = document.getElementById(caption);
-        $scope.addedCaptions.push(caption);
+        var add_button = document.getElementById(link);
+        $scope.addedLinks.push(link);
         add_button.className = 'fa fa-check-circle fa-lg';
       }
     }
 
-    $scope.removeImage = function(caption) {
-      index = $scope.addedCaptions.indexOf(caption);
-      $scope.addedCaptions.splice(index, 1);
-      var add_button = document.getElementById(caption);
+    $scope.removeImage = function(link) {
+      index = $scope.addedLinks.indexOf(link);
+      $scope.addedLinks.splice(index, 1);
+      var add_button = document.getElementById(link);
       add_button.className = 'fa fa-plus fa-lg';
     }
 }]);

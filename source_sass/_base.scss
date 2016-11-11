@@ -1,14 +1,41 @@
 @import url('http://fonts.googleapis.com/css?family=Open+Sans|Droid+Sans|Montserrat|MerriweatherAlegreya+Sans|Cantora+One|Dancing+Script');
-.search-bar {
-  list-style: none;
+.top-bar {
+  height: 100px;
+  background-color: $blue;
+  input {
+    max-width: 300px;
+  }
+}
+.top-menu {
+  width: 100%;
+  text-align: center;
   position: relative;
-  .has-form {
-    position: fixed;
-    top: 50%;
-    margin-top: -28px;
-    width: 100%;
-    button {
-      background-color: $yellow;
+  top: 50%;
+  margin-top: -20px;
+  .menu {
+    width: 250px;
+    margin: 0;
+    display: inline-block;
+    .has-form {
+      width: 300px;
+      .columns {
+        margin-top: 0px;
+      }
+      .search-button {
+        margin-top: -40px;
+        position: relative;
+        left: 80px;
+        .button.alert {
+          background-color: $yellow;
+          &:hover {
+            background: darken($yellow, 5%);
+          }
+        }
+      }
+    }
+    a {
+      font-size: 24px;
+      // font-weight: normal;
     }
   }
 }
