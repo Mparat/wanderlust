@@ -18,7 +18,7 @@ module.exports = {
       }
       else {
         // console.log('hi');
-        console.log(result);
+        // console.log(result);
         return res.status(200).json({message: "Place Found", data: result});
       }
     });
