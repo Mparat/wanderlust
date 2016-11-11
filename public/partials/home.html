@@ -19,7 +19,7 @@
   <div class="column" ng-repeat="(link, caption) in images">
     <div class="image-container">
       <a ng-click="addImage(link)"><i id="{{link}}" class="fa fa-plus fa-lg" aria-hidden="true"></i></a>
-      <img class="img-responsive" ng-src="{{ link }}" />
+      <img class="img-responsive {{link}}" id="image" ng-src="{{ link }}" />
       <h2>{{ caption }}</h2>
     </div>
     <!-- <a ng-href="#/details/{{s.imdbID}}"><img ng-src="./data/images/{{s.imdbID}}.jpg"/></a> -->

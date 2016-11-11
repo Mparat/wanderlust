@@ -28,8 +28,11 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
       }
       else {
         var add_button = document.getElementById(link);
+        var image = document.getElementsByClassName(link)[0];
         $scope.addedLinks.push(link);
         add_button.className = 'fa fa-check-circle fa-lg';
+        image.style.border = "5px solid";
+        image.style.borderColor = "#ffcc00";
       }
     }
 
@@ -37,6 +40,8 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
       index = $scope.addedLinks.indexOf(link);
       $scope.addedLinks.splice(index, 1);
       var add_button = document.getElementById(link);
+      var image = document.getElementsByClassName(link)[0];
       add_button.className = 'fa fa-plus fa-lg';
+      image.style.border = "none";
     }
 }]);
