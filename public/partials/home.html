@@ -1,27 +1,18 @@
-<nav class="top-bar">
-  <div class="top-menu">
-    <ul class="search-bar menu">
-      <li class="has-form">
-        <form ng-submit="searchPlace()">
-          <input ng-model="searchText" type="text" placeholder="Search: city or country">
-        </form>
-        <div class="large-4 small-3 columns search-button">
-          <button type="submit" ng-click="searchPlace()" class="alert button expand">
-              <i class="fa fa-search" aria-hidden="true"></i>
-          </button>
-        </div>
-      </li>
-    </ul>
+<div class="container">
+  <div class="instructions">
+    <img id="suitcase" src='../media/suitcase.png'></img>
+    <img id="airplane" src='../media/airplane.png'></img>
+    <img id="camera" src='../media/camera1.png'></img>
+    <p>We love travelling...and guess you do, too</p>
+    <p>1. Search a city of country.
+    <br>2. Select images that you want to visit.
+    <br>3. View on map.
+    <br>4. Travel!</p>
   </div>
-</nav>
-
-<div class="grid row small-up-1 medium-up-2 large-up-4">
-  <div class="column" ng-repeat="(link, caption) in images">
-    <div class="image-container">
-      <a ng-click="addImage(link)"><i id="{{link}}" class="fa fa-plus fa-lg" aria-hidden="true"></i></a>
-      <img class="img-responsive {{link}}" id="image" ng-src="{{ link }}" />
-      <h2>{{ caption }}</h2>
-    </div>
-    <!-- <a ng-href="#/details/{{s.imdbID}}"><img ng-src="./data/images/{{s.imdbID}}.jpg"/></a> -->
-  </div>
+</div>
+<div class="quote">
+  <p>"Once a year, go some place you've never been before." -Dalai Lama</p>
+</div>
+<div class="next">
+  <a href="#/gallery"><button class="button tiny info">Next</button></a>
 </div>
