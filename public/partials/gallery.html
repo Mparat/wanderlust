@@ -1,0 +1,43 @@
+<style>
+  body {
+    border-style: solid;
+    border-width: 0px 80px 0px 80px;
+    border-color: #EEF1F7;
+  }
+</style>
+<nav class="top-bar">
+  <div class="top-menu">
+    <img id="airballoon" src='../media/airballoon.png'></img>
+    <ul class="search-bar menu">
+      <li class="has-form">
+        <form ng-submit="searchPlace()">
+          <input ng-model="searchText" type="text" placeholder="Search: city or country">
+        </form>
+        <div class="large-4 small-3 columns search-button">
+          <button type="submit" ng-click="searchPlace()" class="alert button expand">
+              <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="grid row small-up-1 medium-up-2 large-up-4">
+  <label class="alert" ng-style="{'visibility': alertVisibility}">Sorry...we currently don't have images for this location yet. Try another city/country!</label>
+  <div class="column" ng-repeat="(link, caption) in images">
+    <div class="image-container">
+      <a ng-click="addImage(link, caption)"><i id="{{link}}" class="fa fa-plus fa-lg" aria-hidden="true"></i></a>
+      <img class="img-responsive {{link}}" id="image" ng-src="{{ link }}" />
+      <h2>{{ caption }}</h2>
+    </div>
+  </div>
+</div>
+
+<div class="fixed-bottom">
+  <nav class="top-bar bottom-bar">
+    <div class="next">
+      <a href="#/map"><button class="button tiny info">Next</button></a>
+    </div>
+  </nav>
+</div>

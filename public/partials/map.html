@@ -1,0 +1,18 @@
+<!-- Google API Key: AIzaSyAWtWskzz3LEIHDhxtOgGE48gc6r_GlVpE -->
+
+<div class="side_container">
+  <div class="container">
+    <div class="instructions">
+      <img id="pics" src='../media/pics.png'></img>
+      <img id="bus" src='../media/bus.png'></img>
+      <h3><b>Bucket list:<b></h3>
+      <ul>
+        <li ng-repeat="img in selected">{{img[0]}}</li>
+      </ul>
+    </div>
+  </div>
+<div>
+  <label class="alert" ng-style="{'visibility': alertVisibility}">Looks like you haven't picked any images you liked. Go back and select some!</label>
+</div>
+
+<div id="map"></div>
