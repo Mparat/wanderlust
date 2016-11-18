@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+// var Place = require('../models/place');
+>>>>>>> 0d1058509ef2a126f6167c122bb24297163c3a85
 const MongoClient = require('mongodb').MongoClient
 var db
 MongoClient.connect('mongodb://admin:mparat2@ds143707.mlab.com:43707/travel_agent', function(err, database) {
