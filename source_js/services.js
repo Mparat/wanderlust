@@ -20,12 +20,6 @@ myApp.factory('CommonData', function($http, $window){
     }
 });
 
-// myApp.factory('Place', function($http, $window) {
-//   return{
-//
-//   }
-// });
-
 myApp.factory('srvAuth', function($http, $window, $rootScope) {
     var watchLoginChangeLogic = function() {    // getLoginStatus
       console.log("Watchin da change")

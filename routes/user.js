@@ -1,9 +1,4 @@
 const MongoClient = require('mongodb').MongoClient
-// var db
-// MongoClient.connect('mongodb://admin:mparat2@ds143707.mlab.com:43707/travel_agent', function(err, database) {
-//   if (err) return console.log(err)
-//   db = database
-// })
 var User = require('../models/user');
 var mongoose = require('mongoose');
 var db = mongoose.connection;

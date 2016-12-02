@@ -1,7 +1,8 @@
 app.controller('MainController', ['$scope', '$http', '$window', 'CommonData', 'srvAuth', '$rootScope', function($scope, $http, $window, CommonData, srvAuth, $rootScope) {
     var random = ['Morocco', 'Madrid', 'Oslo', 'London', 'Peru', 'Cuba', 'Montreal', 'Nepal', 'India', 'Japan'];
     var idx = Math.floor(Math.random() * 10) + 0 ;
-    $scope.searchText = random[idx];
+    // $scope.searchText = random[idx];
+    $scope.searchText = 'Nepal';
     $scope.addedCaptions = {};
     // Performs post seach query on database based on the search field.
     // Checks to see if any search results showed up, and if not, then we display a message to the user.
@@ -71,6 +72,8 @@ app.controller('MainController', ['$scope', '$http', '$window', 'CommonData', 's
       CommonData.setSelected($scope.addedCaptions);
     };
 
+    // When "fb login" is selected
+    // the user is logged in via facebook, and new user is created in the DB if they don't exist.
     $window.getUserInfo = function() {
       var user = srvAuth.getUserInfo();
       // console.log("user retrieved: ", user);
@@ -84,6 +87,9 @@ app.controller('MainController', ['$scope', '$http', '$window', 'CommonData', 's
       window.location = "http://localhost:3000/#/gallery";
     };
 
+    // When "Next" is clicked.
+    // If a user is not FB logged in yet, nothing happens,
+    // otherwise the user is taken to the gallery page and the 'user' is fetched from the db
     $scope.getLoggedInUser = function() {
       // srvAuth.getUserInfo();
       var FBuser = $rootScope.user;
@@ -114,6 +120,7 @@ app.controller('UserController', ['$scope', '$http', '$window', 'CommonData', 's
     window.location = "http://localhost:3000/#/home";
   };
 
+  // fetches the logged in user's locations and assigns it to $scope.images to populate the view
   $scope.showCards = function() {
     $http.post('api/User/get', {facebookId: $rootScope.user.id})
       .then(function(res) {
@@ -126,6 +133,8 @@ app.controller('UserController', ['$scope', '$http', '$window', 'CommonData', 's
     $scope.images = CommonData.getSelected();
     $scope.fbUserId = $rootScope.user.id;
 
+    // given the locations of the user stored in the database and the selected images in the current session,
+    // this adds the selected images to the db if they don't already exist
     $scope.updateLocations = function(oldImages) {
       console.log('old images: ', oldImages);
       console.log('selected images: ', $scope.images);
@@ -152,6 +161,7 @@ app.controller('UserController', ['$scope', '$http', '$window', 'CommonData', 's
       return oldImages;
     }
 
+    // uodate the user's saved images and locations with the images fro the current session
     $scope.addToUser = function() {
       $http.post('api/User/get', {facebookId: $scope.fbUserId})
         .then(function(res) {
