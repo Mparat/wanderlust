@@ -1,10 +1,13 @@
-app.controller('MainController', ['$scope', '$http', '$window', 'CommonData', function($scope, $http, $window, CommonData) {
-    $scope.searchText = 'Morocco';
+app.controller('MainController', ['$scope', '$http', '$window', 'CommonData', 'srvAuth', '$rootScope', function($scope, $http, $window, CommonData, srvAuth, $rootScope) {
+    var random = ['Morocco', 'Madrid', 'Oslo', 'London', 'Peru', 'Cuba', 'Montreal', 'Nepal', 'India', 'Japan'];
+    var idx = Math.floor(Math.random() * 10) + 0 ;
+    $scope.searchText = random[idx];
     $scope.addedCaptions = {};
     // Performs post seach query on database based on the search field.
     // Checks to see if any search results showed up, and if not, then we display a message to the user.
     // all images populated in gallery stored in dictioanary: {link: caption}
     $scope.searchPlace = function() {
+        // $http.get('/api/place', {query: $scope.searchText})
     		$http.post('api/Place/get', {query: $scope.searchText})
             .then(function(response) {
                 returned_array = response.data.data;
@@ -66,12 +69,111 @@ app.controller('MainController', ['$scope', '$http', '$window', 'CommonData', fu
       console.log(add_button);
       image.style.border = "none";
       CommonData.setSelected($scope.addedCaptions);
-    }
+    };
+
+    $window.getUserInfo = function() {
+      var user = srvAuth.getUserInfo();
+      // console.log("user retrieved: ", user);
+
+      $http.post('api/User/post', {facebookId: user.id, name: user.name, locations: []})
+          .then(function(response) {
+              returned_array = response.data.data;
+              console.log(returned_array);
+          })
+      CommonData.setUser(user.id);
+      window.location = "http://localhost:3000/#/gallery";
+    };
+
+    $scope.getLoggedInUser = function() {
+      // srvAuth.getUserInfo();
+      var FBuser = $rootScope.user;
+      if (FBuser) {
+        $http.post('api/User/get', {facebookId: FBuser.id})
+          .then(function(res) {
+                var found_user = res.data.data[0];
+                console.log(found_user);
+                CommonData.setUser(found_user.facebookId);
+                window.location = "http://localhost:3000/#/gallery";
+            })
+      }
+      else {
+        console.log('this user is not found. Must login through Facebook first.');
+      }
+    };
 
     $scope.searchPlace();   // Gallery is prepopulated with search results from "Morocco"
+
 }]);
 
-app.controller('MapController', ['$scope', '$http', '$window', 'CommonData', '$q', function($scope, $http, $window, CommonData, $q) {
+app.controller('UserController', ['$scope', '$http', '$window', 'CommonData', 'srvAuth', '$rootScope', function($scope, $http, $window, CommonData, srvAuth, $rootScope) {
+
+  $scope.FBlogout = function(){
+    console.log('logging out');
+    srvAuth.logout();
+    $scope.displayText = "Logged out"
+    window.location = "http://localhost:3000/#/home";
+  };
+
+  $scope.showCards = function() {
+    $http.post('api/User/get', {facebookId: $rootScope.user.id})
+      .then(function(res) {
+        var user = res.data.data[0];
+        $scope.images = user.locations;
+        console.log($scope.images);
+      })
+  }
+
+    $scope.images = CommonData.getSelected();
+    $scope.fbUserId = $rootScope.user.id;
+
+    $scope.updateLocations = function(oldImages) {
+      console.log('old images: ', oldImages);
+      console.log('selected images: ', $scope.images);
+      if (!oldImages) {
+        oldImages = $scope.images;
+      }
+      else {
+        for (var caption in $scope.images) {
+          if (Object.keys(oldImages).indexOf(caption) == -1) {    // for any location in selected images that is not in db locations.
+            oldImages[caption] = $scope.images[caption];          // add it.
+          }
+          else {
+            for (var item in $scope.images[caption]) {
+              var link = $scope.images[caption][item];
+              if (oldImages[caption].indexOf(link) == -1) {
+                oldImages[caption].push(link);
+                console.log('after push:', oldImages[caption]);
+              }
+            }
+          }
+        }
+      }
+      console.log('return value: ', oldImages);
+      return oldImages;
+    }
+
+    $scope.addToUser = function() {
+      $http.post('api/User/get', {facebookId: $scope.fbUserId})
+        .then(function(res) {
+          var user = res.data.data[0];
+          console.log('$scope.images: ', $scope.images);
+          console.log('user images: ', user.locations);
+          var locations = $scope.updateLocations(user.locations);
+          $http.post('api/User/update', {id: user._id, facebookId: user.facebookId, name:user.name, locations:locations})
+            .then(function(response) {
+              returned_array = response.data.data;
+              CommonData.setUser($scope.user._id);
+              console.log('updated user: ', returned_array);
+              $scope.showCards();
+            })
+        })
+    };
+
+    $scope.addToUser();
+
+}]);
+
+app.controller('MapController', ['$scope', '$http', '$window', 'CommonData', '$q', '$rootScope', function($scope, $http, $window, CommonData, $q, $rootScope) {
     // The following example creates complex markers to indicate beaches near
       // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
       // to the base of the flagpole.
@@ -167,6 +269,7 @@ app.controller('MapController', ['$scope', '$http', '$window', 'CommonData', '$q
       }
 
   $scope.images = CommonData.getSelected();
+  $scope.fbUserId = $rootScope.user.id;
 
   // Perform async call of returning geocode per location in $scope.images using promises and $q.all
   $scope.selected = [];

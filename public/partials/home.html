@@ -14,5 +14,14 @@
   <p>"Once a year, go some place you've never been before." -Dalai Lama</p>
 </div>
 <div class="next">
-  <a href="#/gallery"><button class="button tiny info">Next</button></a>
+  <a ng-click="getLoggedInUser()" ><button class="button tiny info">Next</button></a>
+</div>
+
+<div id="fb-root"></div>
+<fb:login-button scope="public_profile,email" onlogin="getUserInfo()"> </fb:login-button>
+<div id="status"> </div>
+<div
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
 </div>

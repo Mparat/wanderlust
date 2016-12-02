@@ -1,0 +1,18 @@
+<div class="text-right">
+  <button ng-click="FBlogout()" class="">Log Out</button>
+</div>
+
+<div class="grid row small-up-1 medium-up-2 large-up-3">
+  <div class="column outer-columns" ng-repeat="(caption, links) in images">
+    <div class="place_container">
+      <div class="instructions">
+        <h3><b>{{ caption }}<b></h3>
+        <div class="grid row small-up-1 medium-up-2 large-up-2 inner-grid">
+          <div class="column" ng-repeat="link in links">
+            <img class="img-responsive {{link}}" id="image" ng-src="{{ link }}" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

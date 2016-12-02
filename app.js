@@ -4,6 +4,10 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
+var mongoose = require('mongoose');
+mongoose.connect("mongodb://admin:mparat2@ds143707.mlab.com:43707/travel_agent");
+
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(__dirname + '/public'));
